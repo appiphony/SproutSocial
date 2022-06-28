@@ -10,7 +10,7 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>Setup Assistant</label>
+    <label>Sprout Social Setup Assistant</label>
     <navType>Standard</navType>
     <tabs>Setup</tabs>
     <uiType>Lightning</uiType>
