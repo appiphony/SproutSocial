@@ -2,13 +2,13 @@
     <c-landing is-classic={isClassic}></c-landing>
 
     <!-- Wizards and Steps -->
+    <c-wizard title="App Configuration" description="Learn how to configure the Sprout Social application." setup show-close>
+        <c-flow-config-step></c-flow-config-step>
+        <c-component-config-step></c-component-config-step>
+        <c-permissions-config-step></c-permissions-config-step>
+    </c-wizard>
     <c-wizard title="Package Log Management" description="Define how this application records error and success logs for debugging purposes." setup show-close>
         <c-package-log-config-step></c-package-log-config-step>
-    </c-wizard>
-    <c-wizard description="Configure your... (Summarize the need to complete this wizard)" setup show-close>
-        <c-step title="This is my title" description="This is my description. I don't know what this is yet">
-            <p slot="description">This application will require you to... (Describe why the admin is configuring this step)</p>
-        </c-step>
     </c-wizard>
     <!-- /Wizards and Steps -->
 </template>
