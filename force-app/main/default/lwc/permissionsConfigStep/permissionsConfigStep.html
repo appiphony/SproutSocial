@@ -1,0 +1,36 @@
+<template>
+    <c-step
+    header="Adding Permission Sets"
+    container-size="small"
+    back-label="Back"
+    next-label="Next">
+        <div class="slds-container slds-container_center slds-container_small" slot="description">
+            The package includes the Sprout Social User permission set that must be assigned to any standard user that will use the Sprout Social lightning component. Learn about applying permission sets below.
+        </div>
+        <div class="slds-m-around_large">
+            <ol class="slds-list_ordered">
+                <li class="slds-p-bottom_small">
+                    <strong>
+                        Open&nbsp;
+                        <a href="/lightning/setup/PermSets/home" target="_blank">Permission Sets&nbsp;
+                            <lightning-icon 
+                                icon-name="utility:new_window"
+                                size="xx-small" 
+                                class="ss-icon_inline slds-current-color slds-show_inline-block">
+                            </lightning-icon>
+                        </a>
+                    </strong>
+                    <p>To assign the permission set to users in your org, navigate to <strong>Permission Sets</strong>, or search for it using the Quick Find box.</p>
+                </li>
+                <li class="slds-p-bottom_small">
+                    <strong>Modify the Packaged Sprout Social User Permission Set</strong>
+                    <p>From the Permission Sets list view, locate and click on the <strong>Sprout Social User</strong> permission set. Once selected you will be routed to the Permission Set Overview page. </p>
+                </li>
+                <li class="slds-p-bottom_small">
+                    <strong>Assigning Users to the Permission Set</strong>
+                    <p>From the Permission Set Overiew page, click on <strong>Manage Assignments</strong> which will then route you to the Assigned Users list view. Click <strong>Add Assignments</strong> and choose the users you wish to apply the permission set to. Once you've finished selecting users click <strong>Assign</strong>. Review the Assignment Summary and click Done when you're ready.</p>
+                </li>
+            </ol>
+        </div>
+    </c-step>
+</template>

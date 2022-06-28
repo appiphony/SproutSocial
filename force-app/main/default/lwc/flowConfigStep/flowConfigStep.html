@@ -1,0 +1,27 @@
+<template>
+    <c-step
+        header="Using Salesforce Flows"
+        container-size="small"
+        back-hidden
+        next-label="Next">
+        <div class="slds-container slds-container_center slds-container_small" slot="description">
+            This app is packaged with a Salesforce Flow template that will convert Sprout Social data into records of the Sprout Social Post and Sprout Social Persona objects. Learn how to configure this flow below.
+        </div>
+        <div class="slds-m-around_large s">        
+            <ol class="slds-list_ordered">
+                <li class="slds-m-bottom_medium">
+                    <strong>Open&nbsp;<a href="/lightning/setup/Flows/home" target="_blank">Flows&nbsp;<lightning-icon icon-name="utility:new_window" size="xx-small" class="ss-icon_inline slds-current-color slds-show_inline-block"></lightning-icon></a></strong>
+                    <p>In your org's Setup, navigate to <strong>Flows</strong>, or search for it using the Quick Find box.</p>
+                </li>
+                <li class="slds-m-bottom_medium">
+                    <strong>Open Flow Builder</strong>
+                    <p>Click <strong>New Flow</strong> at the top of the page. Select <strong>Record-Triggered Flow</strong> for the Flow type.</p>
+                </li>
+                <li class="slds-m-bottom_medium">
+                    <strong>Define the Start of the Flow</strong>
+                    <p>Select the "Sprout Social Post" or "Sprout Social Persona" as the Flow Object, which will cause the Flow to initiate when records are created. Once you have finished defining the start of the flow, click <strong>Done</strong> to finish.</p> 
+                </li>
+            </ol>
+        </div>
+    </c-step>
+</template>
