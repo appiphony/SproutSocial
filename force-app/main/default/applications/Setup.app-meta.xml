@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <brand>
-        <headerColor>#0070D2</headerColor>
+        <headerColor>#F3F4F4</headerColor>
+        <logo>sproutsocialicon</logo>
+        <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
     </brand>
-    <description>Manage your app with Strike Setup!</description>
+    <description>Manage your Sprout Social integration.</description>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>Setup</label>
+    <label>Sprout Social Setup Assistant</label>
     <navType>Standard</navType>
     <tabs>Setup</tabs>
+    <tabs>Package_Log__c</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

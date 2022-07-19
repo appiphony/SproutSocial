@@ -1,10 +1,10 @@
 import { LightningElement, api, track } from 'lwc';
-import companyLogo from '@salesforce/resourceUrl/companyLogo';
+import sproutSocialLogo from '@salesforce/resourceUrl/sproutSocialLogo';
 import getData from '@salesforce/apex/setupAssistant.getData';
 import getPackageVersion from '@salesforce/apex/setupAssistant.getPackageVersion';
 
 export default class Landing extends LightningElement {
-    @track companyLogo = companyLogo;
+    @track sproutSocialLogo = sproutSocialLogo;
     @track loading = true;
     @track started = false;
     @track wizards = [];
