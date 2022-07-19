@@ -8,12 +8,12 @@ export default class PackageLogConfigStep extends LightningElement {
     @track capturedActivityValue = 'errorsOnly';
     @track capturedActivityType = [
         {
-            label:'Errors Only',
-            value:'errorsOnly'
+            label: 'Errors Only',
+            value: 'errorsOnly'
         },
         {
-            label:'All Activity',
-            value:'allActivity'
+            label: 'All Activity',
+            value: 'allActivity'
         }
     ]
 

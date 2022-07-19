@@ -111,6 +111,7 @@
 .sp-keyboard-mode {
     pointer-events: none;
 }
+
 .sp-menu-button.slds-button:hover {
     background-color: white;
 }

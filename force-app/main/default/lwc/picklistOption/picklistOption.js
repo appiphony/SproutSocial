@@ -8,8 +8,8 @@ export default class picklistOption extends LightningElement {
     @track hasFocus = false;
 
     @api
-    select(){
-        if(!this.option.disabled){
+    select() {
+        if (!this.option.disabled) {
             let evt = new CustomEvent('select',{
                 detail:{
                     selectedOption: this.option
@@ -20,26 +20,26 @@ export default class picklistOption extends LightningElement {
     }
 
     @api
-    addFocus(){
+    addFocus() {
         this.hasFocus = true;
     }
 
     @api
-    removeFocus(){
+    removeFocus() {
         this.hasFocus = false;
     }
 
     @api
-    getValue(){
+    getValue() {
         return this.option.value;
     }
 
-    updateFocusIndex(event){
+    updateFocusIndex(event) {
         event.preventDefault();
         this.dispatchEvent(new CustomEvent('updatefocusindex', {detail: this.option.value}));
     }
 
-    preventDefault(event){
+    preventDefault(event) {
         event.preventDefault();
     }
 
@@ -47,15 +47,15 @@ export default class picklistOption extends LightningElement {
         return 'slds-listbox__item' + (this.option.disabled ? ' so-listbox__item_disabled' : '');
     }
 
-    get isSelected(){
+    get isSelected() {
         return this.option.value === this.parentValue;
     }
 
-    get iconClasslist(){
+    get iconClasslist() {
         return this.option.value === this.parentValue ? '' : 'slds-is-selected';
     }
 
-    get optionClasslist(){
+    get optionClasslist() {
         return 'slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media_center' + 
                (this.isSelected ? ' slds-is-selected' : '') + 
                (this.option.disabled ? ' so-disabled' : '') + 
