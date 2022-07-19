@@ -159,7 +159,13 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Sprout Social Posts</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>PersonaId__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Content__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Message_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ReviewedStatus__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ReviewScore__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

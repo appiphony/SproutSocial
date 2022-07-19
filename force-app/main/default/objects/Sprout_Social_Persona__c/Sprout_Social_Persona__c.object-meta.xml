@@ -159,7 +159,12 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Sprout Social Personas</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>MediaProvider__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Provider__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ParentContact__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Followers__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
