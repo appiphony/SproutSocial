@@ -55,12 +55,16 @@ public with sharing class SetupAssistant {
         try {
             checkAccess();
 
+            System.debug('save Data:' + setupData);
+
             if (setupData != null) {
                 Setup_Data__c dataObj = (Setup_Data__c)utilities.getSobjectByMap(setupData, constants.NAMESPACE_API + 'Setup_Data__c');
                 saveSetupData(dataObj);
             }
 
+            System.debug('check empty');
             if (setupSettings != null) {
+                System.debug('not null');
                 for (String field : setupSettings.keySet()) {
                     if (constants.BLUR_STRING == setupSettings.get(field)) {
                         setupSettings.remove(field);
@@ -72,7 +76,7 @@ public with sharing class SetupAssistant {
                 upsert settingsObj;
             }
 
-            return getData();
+            //return getData();
         } catch (Exception e) {
             rd.addError(e);
         }

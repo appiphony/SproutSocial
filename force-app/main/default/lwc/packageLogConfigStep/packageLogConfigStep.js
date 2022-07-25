@@ -1,4 +1,6 @@
 import { LightningElement, track } from 'lwc';
+import saveData from "@salesforce/apex/SetupAssistant.saveData";
+
 
 export default class PackageLogConfigStep extends LightningElement {
 
@@ -16,6 +18,14 @@ export default class PackageLogConfigStep extends LightningElement {
             value: 'allActivity'
         }
     ]
+
+    constructor() {
+
+        super();
+
+        this.template.addEventListener('next', this.next.bind(this));
+
+    }
 
     get disableDeletelogs() {
         return this.currentLogRecordCount === 0;
@@ -36,5 +46,22 @@ export default class PackageLogConfigStep extends LightningElement {
             }
             this.template.querySelector('.strike-delete-logs').hide();
         }
+    }
+
+    next(event) {
+        //debugger
+        let setupData = {
+            Steps_Completed__c : JSON.stringify({'C-PACKAGE-LOG-CONFIG-STEP' : 1})
+        }
+        saveData({setupData:setupData}).then(res => {
+            let parsedRes = JSON.parse(res);
+            if (parsedRes.isSuccess) {
+                //let results = responseData.results;
+            } else {
+                this.showToast('error', parsedRes.error);
+            }
+        }).catch(error => {
+            this.showToast('error', error.message ? error.message : error.body.message);
+        });
     }
 }
