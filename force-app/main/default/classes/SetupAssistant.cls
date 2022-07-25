@@ -26,6 +26,8 @@ public with sharing class SetupAssistant {
         try {
             checkAccess();
 
+            List<AggregateResult> numPackageLogsList = [SELECT count(Id) packageLogCount FROM Package_Log__c];
+            
             Setup_Settings__c settings = Setup_Settings__c.getOrgDefaults();
             for (Schema.SObjectField field : Setup_Settings__c.sObjectType.getDescribe().fields.getMap().values()) {
                 Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
@@ -40,6 +42,7 @@ public with sharing class SetupAssistant {
             }
 
             rd.put('setupData', getSetupData());
+            rd.put('currentLogRecordCount', numPackageLogsList[0].get('packageLogCount'));
             rd.put('setupSettings', settings);
         } catch (Exception e) {
             rd.addError(e);

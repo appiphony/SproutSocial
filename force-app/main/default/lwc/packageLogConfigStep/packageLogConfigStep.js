@@ -1,5 +1,7 @@
-import { LightningElement, track } from 'lwc';
+import { api, LightningElement, track } from 'lwc';
 import saveData from "@salesforce/apex/SetupAssistant.saveData";
+import getData from "@salesforce/apex/SetupAssistant.getData";
+import { getDataConnector } from 'lightning/analyticsWaveApi';
 
 
 export default class PackageLogConfigStep extends LightningElement {
@@ -27,12 +29,45 @@ export default class PackageLogConfigStep extends LightningElement {
 
     }
 
+    @api
+    show(){
+        //debugger
+        return new Promise((resolve, reject) => {
+            getData().then(res => {
+                let parsedRes = JSON.parse(res);
+                if(parsedRes.isSuccess){
+                    let setupMetadata = parsedRes.results.setupData;
+                    this.currentLogRecordCount = parsedRes.results.currentLogRecordCount;
+
+                    if(setupMetadata.Retention_Value__c){
+                        this.capturedActivityValue = setupMetadata.Retention_Type__c;
+                        this.logRecordsRetainedLimit = setupMetadata.Retention_Value__c;
+                    } else {
+                        this.logRecordsRetainedLimit = '1000';
+                        this.capturedActivityType = 'errorsOnly';
+                    }
+                } else {
+                    this.showToast('error', parsedRes.error);
+                }
+
+            }).catch(error => {
+                this.showToast('error', error.message ? error.message : error.body.message);
+            }).finally(() => {
+                resolve();
+            })
+        })
+    }
+
     get disableDeletelogs() {
         return this.currentLogRecordCount === 0;
     }
 
     updateCapturedActivityValue(event) {
         this.capturedActivityValue = event.detail.value;
+    }
+
+    updateLogLimit(event){
+        this.logRecordsRetainedLimit = event.currentTarget.value;
     }
 
     handleDeleteLogModal(event) {
@@ -51,17 +86,30 @@ export default class PackageLogConfigStep extends LightningElement {
     next(event) {
         //debugger
         let setupData = {
-            Steps_Completed__c : JSON.stringify({'C-PACKAGE-LOG-CONFIG-STEP' : 1})
+            Steps_Completed__c : JSON.stringify({'C-PACKAGE-LOG-CONFIG-STEP' : 1}),
+            Retention_Type__c : this.capturedActivityValue,
+            Retention_Value__c : this.logRecordsRetainedLimit
         }
+
         saveData({setupData:setupData}).then(res => {
             let parsedRes = JSON.parse(res);
             if (parsedRes.isSuccess) {
-                //let results = responseData.results;
             } else {
                 this.showToast('error', parsedRes.error);
             }
         }).catch(error => {
             this.showToast('error', error.message ? error.message : error.body.message);
         });
+    }
+
+    showToast(type, message) {
+        this.dispatchEvent(new CustomEvent('showtoast', {
+            detail: {
+                message : message,
+                variant : type
+            },
+            bubbles: true,
+            composed: true
+        }));
     }
 }
