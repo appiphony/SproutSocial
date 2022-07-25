@@ -42,9 +42,6 @@ export default class PackageLogConfigStep extends LightningElement {
                     if(setupMetadata.Retention_Value__c){
                         this.capturedActivityValue = setupMetadata.Retention_Type__c;
                         this.logRecordsRetainedLimit = setupMetadata.Retention_Value__c;
-                    } else {
-                        this.logRecordsRetainedLimit = '1000';
-                        this.capturedActivityType = 'errorsOnly';
                     }
                 } else {
                     this.showToast('error', parsedRes.error);

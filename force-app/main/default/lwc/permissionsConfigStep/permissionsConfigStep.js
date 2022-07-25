@@ -13,11 +13,9 @@ export default class PermissionsConfigStep extends LightningElement {
     }
 
     next(event) {
-        //debugger
         let setupData = {
             Steps_Completed__c : JSON.stringify({'C-PERMISSIONS-CONFIG-STEP' : 1})
         }
-        console.log("it works");
 
         saveData({setupData:setupData}).then(res => {
             let parsedRes = JSON.parse(res);
