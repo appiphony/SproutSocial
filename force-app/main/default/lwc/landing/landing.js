@@ -42,7 +42,6 @@ export default class Landing extends LightningElement {
 
     @api
     init(wizards) {
-        console.log('getData First');
         getData()
         .then(responseDataString => {
             const responseData = JSON.parse(responseDataString);

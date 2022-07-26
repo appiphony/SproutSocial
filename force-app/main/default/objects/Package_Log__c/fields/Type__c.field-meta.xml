@@ -4,9 +4,22 @@
     <description>Exception type</description>
     <externalId>false</externalId>
     <label>Type</label>
-    <length>255</length>
     <required>false</required>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>error</fullName>
+                <default>false</default>
+                <label>error</label>
+            </value>
+            <value>
+                <fullName>debug</fullName>
+                <default>false</default>
+                <label>debug</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

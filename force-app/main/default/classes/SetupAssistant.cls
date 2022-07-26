@@ -27,25 +27,9 @@ public with sharing class SetupAssistant {
             checkAccess();
 
             List<AggregateResult> numPackageLogsList = [SELECT count(Id) packageLogCount FROM Package_Log__c];
-            
-            /*
-            Setup_Settings__c settings = Setup_Settings__c.getOrgDefaults();
-            for (Schema.SObjectField field : Setup_Settings__c.sObjectType.getDescribe().fields.getMap().values()) {
-                Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
-
-                if (fieldDescribe.isCustom()) {
-                    String fieldName = fieldDescribe.getName();
-
-                    if (null != settings.get(fieldName)) {
-                        settings.put(fieldName, constants.BLUR_STRING);
-                    }
-                }
-            }
-            */
 
             rd.put('setupData', getSetupData());
             rd.put('currentLogRecordCount', numPackageLogsList[0].get('packageLogCount'));
-            //rd.put('setupSettings', settings);
         } catch (Exception e) {
             rd.addError(e);
         }
@@ -54,11 +38,11 @@ public with sharing class SetupAssistant {
     }
 
     @AuraEnabled
-    public static String saveData(Map<String, Object> setupData, Map<String, Object> setupSettings) {
+    public static String saveData(Map<String, Object> setupData) {
         responseData rd = new responseData();
 
         try {
-            //checkAccess();
+            checkAccess();
 
             System.debug('save Data:' + setupData);
 
@@ -75,26 +59,7 @@ public with sharing class SetupAssistant {
                     }
                 }
                 metadataCRUD.saveSetupConfigData(setupData, 'Setup_MetaData.Default');
-                /* My old stuff
-                Setup_Data__c dataObj = (Setup_Data__c)utilities.getSobjectByMap(setupData, constants.NAMESPACE_API + 'Setup_Data__c');
-                saveSetupData(dataObj);
-                */
             }
-
-            System.debug('check empty');
-            /*if (setupSettings != null) {
-                System.debug('not null');
-                for (String field : setupSettings.keySet()) {
-                    if (constants.BLUR_STRING == setupSettings.get(field)) {
-                        setupSettings.remove(field);
-                    }
-                }
-                Setup_Settings__c settingsObj = (Setup_Settings__c)utilities.getSobjectByMap(setupSettings, constants.NAMESPACE_API + 'Setup_Settings__c');
-                settingsObj.Id = Setup_Settings__c.getOrgDefaults().Id;
-
-                upsert settingsObj;
-            }
-            */
 
             return getData();
         } catch (Exception e) {
@@ -106,36 +71,8 @@ public with sharing class SetupAssistant {
 
     public static Setup_MetaData__mdt getSetupData() {
 
-        /*checkAccess();
+        checkAccess();
 
-        Set<String> fields = new Set<String>{'Id'};
-
-        // Get all the custom fields.
-        for (Schema.SObjectField field : Setup_Data__c.sObjectType.getDescribe().fields.getMap().values()) {
-            Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
-
-            if (fieldDescribe.isCustom()) {
-                fields.add(fieldDescribe.getName());
-            }
-        }
-
-        String query = 'SELECT ' + String.join(new List<String>(fields), ',') + 
-                       ' FROM ' + constants.NAMESPACE_API + 'Setup_Data__c' + 
-                       ' WHERE Name = \'Default\'';
-
-        List<Setup_Data__c> data = Database.query(query);
-        Setup_Data__c setupData = new Setup_Data__c();
-
-        if (!data.isEmpty()) {
-            setupData = data[0];
-        }
-
-        setupData.Name = 'Default';
-
-        if (String.isEmpty(setupData.Steps_Completed__c)) {
-            setupData.Steps_Completed__c = '{}';
-        }
-*/
         Set<String> fields = new Set<String> {
             'Id',
             'Steps_Completed__c',
@@ -144,7 +81,6 @@ public with sharing class SetupAssistant {
         };
 
         String query = 'SELECT ' + String.join(new List<String>(fields), ',') + ' FROM ' + constants.NAMESPACE_API + 'Setup_MetaData__mdt WHERE label = \'Default\' WITH SECURITY_ENFORCED';
-        System.debug(query);
         List<Setup_MetaData__mdt> data = Database.query(query);
         Setup_MetaData__mdt setupData = new Setup_MetaData__mdt();
 
@@ -154,7 +90,6 @@ public with sharing class SetupAssistant {
 
         setupData.label = 'Default';
 
-        System.debug('Before initial Steps');
         if(String.isEmpty(setupData.Steps_Completed__c)) {
             setupData.Steps_Completed__c = '{}';
         }

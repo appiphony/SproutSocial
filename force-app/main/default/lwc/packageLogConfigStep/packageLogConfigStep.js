@@ -99,10 +99,12 @@ export default class PackageLogConfigStep extends LightningElement {
         saveData({setupData:setupData}).then(res => {
             let parsedRes = JSON.parse(res);
             if (parsedRes.isSuccess) {
+
             } else {
                 this.showToast('error', parsedRes.error);
             }
         }).catch(error => {
+            packageLogger.create();
             this.showToast('error', error.message ? error.message : error.body.message);
         });
     }
