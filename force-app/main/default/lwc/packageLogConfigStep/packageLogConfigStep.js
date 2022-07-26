@@ -1,6 +1,7 @@
 import { api, LightningElement, track } from 'lwc';
 import saveData from "@salesforce/apex/SetupAssistant.saveData";
 import getData from "@salesforce/apex/SetupAssistant.getData";
+import executeDeleteBatch from '@salesforce/apex/debugLogStep.executeDeleteBatch';
 import { getDataConnector } from 'lightning/analyticsWaveApi';
 
 
@@ -73,7 +74,14 @@ export default class PackageLogConfigStep extends LightningElement {
             this.template.querySelector('.strike-delete-logs').show();
         } else {
             if (currentClick === 'Confirm') {
-                // Delete All Records
+                executeDeleteBatch().then(res => {
+                    let parsedRes = JSON.parse(res);
+                    if(parsedRes.isSuccess) {
+                        this.showToast('success', 'Deletion batch job has been queued.');
+                    } else {
+                        this.showToast('error', parsedRes.error);
+                    }
+                })
                 this.currentLogRecordCount = 0;
             }
             this.template.querySelector('.strike-delete-logs').hide();

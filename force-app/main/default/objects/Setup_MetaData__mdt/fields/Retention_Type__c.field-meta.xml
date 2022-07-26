@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Retention_Type__c</fullName>
-    <description>Type of logs that need to be saved</description>
     <externalId>false</externalId>
-    <label>Retention_Type</label>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Retention Type</label>
     <required>false</required>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
@@ -13,7 +12,7 @@
             <sorted>false</sorted>
             <value>
                 <fullName>errorsOnly</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>errorsOnly</label>
             </value>
             <value>

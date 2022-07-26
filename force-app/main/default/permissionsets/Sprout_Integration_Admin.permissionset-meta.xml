@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>User who will be setting up the Sprout Social package</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Sprout Integration Admin</label>
+</PermissionSet>

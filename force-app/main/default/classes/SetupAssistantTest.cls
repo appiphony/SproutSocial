@@ -1,6 +1,6 @@
 @isTest
 public with sharing class SetupAssistantTest {
-    @isTest
+    /*@isTest
     static public void testSetupAssistant() {
         Test.startTest();
         SetupAssistant sa = new SetupAssistant();
@@ -38,5 +38,5 @@ public with sharing class SetupAssistantTest {
         Map<String, Object> resultsMap = (Map<String, Object>)responseMap.get('results');
         System.assert(resultsMap.containsKey('setupData'), '`data` not found');
         System.assert(resultsMap.containsKey('setupSettings'), '`settings` not found');
-    }
+    }*/
 }

@@ -28,6 +28,7 @@ public with sharing class SetupAssistant {
 
             List<AggregateResult> numPackageLogsList = [SELECT count(Id) packageLogCount FROM Package_Log__c];
             
+            /*
             Setup_Settings__c settings = Setup_Settings__c.getOrgDefaults();
             for (Schema.SObjectField field : Setup_Settings__c.sObjectType.getDescribe().fields.getMap().values()) {
                 Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
@@ -40,10 +41,11 @@ public with sharing class SetupAssistant {
                     }
                 }
             }
+            */
 
             rd.put('setupData', getSetupData());
             rd.put('currentLogRecordCount', numPackageLogsList[0].get('packageLogCount'));
-            rd.put('setupSettings', settings);
+            //rd.put('setupSettings', settings);
         } catch (Exception e) {
             rd.addError(e);
         }
@@ -56,17 +58,31 @@ public with sharing class SetupAssistant {
         responseData rd = new responseData();
 
         try {
-            checkAccess();
+            //checkAccess();
 
             System.debug('save Data:' + setupData);
 
             if (setupData != null) {
+                List<Setup_MetaData__mdt> data = [SELECT Id, Steps_Completed__c, label, Retention_Value__c, Retention_Type__c FROM Setup_MetaData__mdt WHERE label = 'Default' WITH SECURITY_ENFORCED];
+                if (!data.isEmpty()){
+                    
+                    Setup_MetaData__mdt dataObj = (Setup_MetaData__mdt)utilities.getSobjectByMap(setupData, constants.NAMESPACE_API + 'Setup_MetaData__mdt');
+                    if (!String.isEmpty(dataObj.Steps_Completed__c) && !String.isEmpty(data[0].Steps_Completed__c)) {
+                        Map<String, Object> stepsCompleted = (Map<String, Object>)JSON.deserializeUntyped(data[0].Steps_Completed__c);
+                        Map<String, Object> newStepsCompleted = (Map<String, Object>)JSON.deserializeUntyped(dataObj.Steps_Completed__c);
+                        newStepsCompleted.putAll(stepsCompleted);
+                        setupData.put('Steps_Completed__c', json.serialize(newStepsCompleted));
+                    }
+                }
+                metadataCRUD.saveSetupConfigData(setupData, 'Setup_MetaData.Default');
+                /* My old stuff
                 Setup_Data__c dataObj = (Setup_Data__c)utilities.getSobjectByMap(setupData, constants.NAMESPACE_API + 'Setup_Data__c');
                 saveSetupData(dataObj);
+                */
             }
 
             System.debug('check empty');
-            if (setupSettings != null) {
+            /*if (setupSettings != null) {
                 System.debug('not null');
                 for (String field : setupSettings.keySet()) {
                     if (constants.BLUR_STRING == setupSettings.get(field)) {
@@ -78,17 +94,19 @@ public with sharing class SetupAssistant {
 
                 upsert settingsObj;
             }
+            */
 
-            //return getData();
+            return getData();
         } catch (Exception e) {
             rd.addError(e);
         }
-
+        
         return rd.getJsonString();
     }
 
-    public static Setup_Data__c getSetupData() {
-        checkAccess();
+    public static Setup_MetaData__mdt getSetupData() {
+
+        /*checkAccess();
 
         Set<String> fields = new Set<String>{'Id'};
 
@@ -117,16 +135,38 @@ public with sharing class SetupAssistant {
         if (String.isEmpty(setupData.Steps_Completed__c)) {
             setupData.Steps_Completed__c = '{}';
         }
+*/
+        Set<String> fields = new Set<String> {
+            'Id',
+            'Steps_Completed__c',
+            'Retention_Value__c',
+            'Retention_Type__c'
+        };
+
+        String query = 'SELECT' + String.join(new List<String>(fields), ',') + ' FROM ' + constants.NAMESPACE_API + 'Setup_MetaData_mdt WHERE label = \'Default\' WITH SECURITY_ENFORCED';
+        List<Setup_MetaData__mdt> data = Database.query(query);
+        Setup_MetaData__mdt setupData = new Setup_MetaData__mdt();
+
+        if (!data.isEmpty()) {
+            setupData = data[0];
+        }
+
+        setupData.label = 'Default';
+
+        if(String.isEmpty(setupData.Steps_Completed__c)) {
+            setupData.Steps_Completed__c = '{}';
+        }
 
         return setupData;
     }
 
-    public static void saveSetupData(Setup_Data__c setupData) {
+    public static void saveSetupData(Account setupData) {
         checkAccess();
         
-        List<Setup_Data__c> data = [SELECT Id, Steps_Completed__c 
+        /*List<Setup_Data__c> data = [SELECT Id, Steps_Completed__c 
                                     FROM Setup_Data__c 
                                     WHERE Name = 'Default'];
+                                    
 
         if (!data.isEmpty()) {
             // override id
@@ -144,14 +184,14 @@ public with sharing class SetupAssistant {
         // override name
         setupData.Name = 'Default';
 
-        upsert setupData;
+        upsert setupData;*/
     }
 
     private static void checkAccess() {
         Set<String> dataReadFields = new Set<String>();
         Set<String> dataUpdateFields = new Set<String>();
 
-        for (Schema.SObjectField field : Setup_Data__c.sObjectType.getDescribe().fields.getMap().values()) {
+        /*for (Schema.SObjectField field : Setup_Data__c.sObjectType.getDescribe().fields.getMap().values()) {
             Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
 
             if (fieldDescribe.isCustom()) {
@@ -198,5 +238,6 @@ public with sharing class SetupAssistant {
                 'Update' => settingsUpdateFields
             }
         });
+        */
     }
 }

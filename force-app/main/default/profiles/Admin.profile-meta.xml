@@ -32,7 +32,7 @@
     <custom>false</custom>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Setup_Data__c.Steps_Completed__c</field>
+        <field>Setup_MetaData__mdt.Steps_Completed__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <objectPermissions>
@@ -41,7 +41,7 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>Setup_Data__c</object>
+        <object>Setup_MetaData__mdt</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <pageAccesses>
