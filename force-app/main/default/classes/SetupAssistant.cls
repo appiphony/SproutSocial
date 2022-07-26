@@ -143,7 +143,8 @@ public with sharing class SetupAssistant {
             'Retention_Type__c'
         };
 
-        String query = 'SELECT' + String.join(new List<String>(fields), ',') + ' FROM ' + constants.NAMESPACE_API + 'Setup_MetaData_mdt WHERE label = \'Default\' WITH SECURITY_ENFORCED';
+        String query = 'SELECT ' + String.join(new List<String>(fields), ',') + ' FROM ' + constants.NAMESPACE_API + 'Setup_MetaData__mdt WHERE label = \'Default\' WITH SECURITY_ENFORCED';
+        System.debug(query);
         List<Setup_MetaData__mdt> data = Database.query(query);
         Setup_MetaData__mdt setupData = new Setup_MetaData__mdt();
 
@@ -153,6 +154,7 @@ public with sharing class SetupAssistant {
 
         setupData.label = 'Default';
 
+        System.debug('Before initial Steps');
         if(String.isEmpty(setupData.Steps_Completed__c)) {
             setupData.Steps_Completed__c = '{}';
         }

@@ -19,7 +19,6 @@ export default class FlowConfigStep extends LightningElement {
         saveData({setupData:setupData}).then(res => {
             let parsedRes = JSON.parse(res);
             if (parsedRes.isSuccess) {
-                //let results = responseData.results;
             } else {
                 this.showToast('error', parsedRes.error);
             }
