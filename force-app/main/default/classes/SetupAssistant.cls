@@ -24,7 +24,7 @@ public with sharing class SetupAssistant {
         responseData rd = new responseData();
 
         try {
-            checkAccess();
+            //checkAccess();
 
             List<AggregateResult> numPackageLogsList = [SELECT count(Id) packageLogCount FROM Package_Log__c];
 
@@ -42,10 +42,10 @@ public with sharing class SetupAssistant {
         responseData rd = new responseData();
 
         try {
-            checkAccess();
+            //checkAccess();
 
             System.debug('save Data:' + setupData);
-
+            
             if (setupData != null) {
                 List<Setup_MetaData__mdt> data = [SELECT Id, Steps_Completed__c, label, Retention_Value__c, Retention_Type__c FROM Setup_MetaData__mdt WHERE label = 'Default' WITH SECURITY_ENFORCED];
                 if (!data.isEmpty()){
@@ -60,6 +60,7 @@ public with sharing class SetupAssistant {
                 }
                 metadataCRUD.saveSetupConfigData(setupData, 'Setup_MetaData.Default');
             }
+            
 
             return getData();
         } catch (Exception e) {
@@ -71,8 +72,8 @@ public with sharing class SetupAssistant {
 
     public static Setup_MetaData__mdt getSetupData() {
 
-        checkAccess();
-
+        //checkAccess();
+        
         Set<String> fields = new Set<String> {
             'Id',
             'Steps_Completed__c',
@@ -98,7 +99,7 @@ public with sharing class SetupAssistant {
     }
 
     public static void saveSetupData(Account setupData) {
-        checkAccess();
+        //checkAccess();
         
         /*List<Setup_Data__c> data = [SELECT Id, Steps_Completed__c 
                                     FROM Setup_Data__c 
@@ -124,11 +125,12 @@ public with sharing class SetupAssistant {
         upsert setupData;*/
     }
 
-    private static void checkAccess() {
+    /*private static void checkAccess() {
         Set<String> dataReadFields = new Set<String>();
         Set<String> dataUpdateFields = new Set<String>();
 
-        /*for (Schema.SObjectField field : Setup_Data__c.sObjectType.getDescribe().fields.getMap().values()) {
+        
+        for (Schema.SObjectField field : Setup_MetaData__mdt.sObjectType.getDescribe().fields.getMap().values()) {
             Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
 
             if (fieldDescribe.isCustom()) {
@@ -147,6 +149,7 @@ public with sharing class SetupAssistant {
         Set<String> settingsReadFields = new Set<String>();
         Set<String> settingsUpdateFields = new Set<String>();
 
+        
         for (Schema.SObjectField field : Setup_Settings__c.sObjectType.getDescribe().fields.getMap().values()) {
             Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
 
@@ -159,22 +162,21 @@ public with sharing class SetupAssistant {
                 }
             }
         }
+        
 
         settingsReadFields.add('Name');
         settingsUpdateFields.add('Name');
 
         DmlManager.checkAccess(new Map<String, Map<String, Set<String>>> {
-            'Setup_Data__c' => new Map<String, Set<String>> {
+            'Setup_MetaData__mdt' => new Map<String, Set<String>> {
                 'Read' => dataReadFields,
                 'Create' => dataUpdateFields,
                 'Update' => dataUpdateFields
-            },
-            'Setup_Settings__c' => new Map<String, Set<String>> {
-                'Read' => settingsReadFields,
-                'Create' => settingsUpdateFields,
-                'Update' => settingsUpdateFields
             }
         });
-        */
+        
+        
+        
     }
+    */
 }

@@ -11,7 +11,7 @@ public with sharing class tst_SetupAssistant {
 
     @isTest
     static void testSetupAssistant_saveData() {
-
+        
     }
 
     @isTest
