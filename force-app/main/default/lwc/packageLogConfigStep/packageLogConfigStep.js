@@ -91,6 +91,7 @@ export default class PackageLogConfigStep extends LightningElement {
     next(event) {
         //debugger
         event.stopPropagation();
+
         let setupData = {
             Steps_Completed__c : JSON.stringify({'C-PACKAGE-LOG-CONFIG-STEP' : 1}),
             Retention_Type__c : this.capturedActivityValue,

@@ -38,7 +38,7 @@
                     label="Max Log Records Retained"
                     value={logRecordsRetainedLimit}
                     onchange={updateLogLimit}
-                    max="999999999999999999"
+                    maxlength="18"
                     field-level-help="This is the maximum number of log records that will be saved in this Salesforce organization. If the limit is hit, older records will be automatically removed to make room for new ones.">
                 </lightning-input>
                 <div class="strike-label_records-captured slds-is-absolute slds-form-element__label">Current Records Captured: {currentLogRecordCount}</div>
