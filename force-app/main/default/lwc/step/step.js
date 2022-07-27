@@ -14,6 +14,10 @@ export default class Step extends LightningElement {
         return 'slds-container slds-container_center slds-container_' + this.containerSize;
     }
 
+    get headerContainerClassList() {
+        return 'slds-container slds-container_center slds-m-bottom_large slds-text-align_center slds-container_' + this.containerSize;
+    }
+
     fireBack() {
         this.dispatchEvent(new CustomEvent('back', {
             bubbles: true,
