@@ -12,6 +12,7 @@ export default class ComponentConfigStep extends LightningElement {
     }
 
     next(event) {
+        event.stopPropagation();
         let setupData = {
             Steps_Completed__c : JSON.stringify({'C-COMPONENT-CONFIG-STEP' : 1})
         }
@@ -19,7 +20,10 @@ export default class ComponentConfigStep extends LightningElement {
         saveData({setupData:setupData}).then(res => {
             let parsedRes = JSON.parse(res);
             if (parsedRes.isSuccess) {
-                //let results = responseData.results;
+                this.dispatchEvent(new CustomEvent('next', {
+                    bubbles: true,
+                    composed: true
+                }));
             } else {
                 this.showToast('error', parsedRes.error);
             }

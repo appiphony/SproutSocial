@@ -12,6 +12,8 @@ export default class FlowConfigStep extends LightningElement {
     }
 
     next(event) {
+        event.stopPropagation();
+
         let setupData = {
             Steps_Completed__c : JSON.stringify({'C-FLOW-CONFIG-STEP' : 1})
         }
@@ -19,6 +21,10 @@ export default class FlowConfigStep extends LightningElement {
         saveData({setupData:setupData}).then(res => {
             let parsedRes = JSON.parse(res);
             if (parsedRes.isSuccess) {
+                this.dispatchEvent(new CustomEvent('next', {
+                    bubbles: true,
+                    composed: true
+                }));
             } else {
                 this.showToast('error', parsedRes.error);
             }

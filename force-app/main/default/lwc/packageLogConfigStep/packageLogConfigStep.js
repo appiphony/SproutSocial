@@ -90,6 +90,7 @@ export default class PackageLogConfigStep extends LightningElement {
 
     next(event) {
         //debugger
+        event.stopPropagation();
         let setupData = {
             Steps_Completed__c : JSON.stringify({'C-PACKAGE-LOG-CONFIG-STEP' : 1}),
             Retention_Type__c : this.capturedActivityValue,
@@ -99,7 +100,10 @@ export default class PackageLogConfigStep extends LightningElement {
         saveData({setupData:setupData}).then(res => {
             let parsedRes = JSON.parse(res);
             if (parsedRes.isSuccess) {
-
+                this.dispatchEvent(new CustomEvent('next', {
+                    bubbles: true,
+                    composed: true
+                }));
             } else {
                 this.showToast('error', parsedRes.error);
             }
