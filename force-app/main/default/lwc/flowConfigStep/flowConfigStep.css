@@ -1,3 +1,7 @@
 .ss-icon_inline {
     transform: translateY(-0.1875rem);
 }
+
+.ss-scoped-notification {
+    border-radius: var(--lwc-borderRadiusMedium,0.25rem);
+}

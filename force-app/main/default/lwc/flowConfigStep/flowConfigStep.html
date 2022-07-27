@@ -1,27 +1,44 @@
 <template>
     <c-step
-        header="Using Salesforce Flows"
+        header="Using the Sprout Social Flow"
         container-size="small"
         back-hidden
         next-label="Next">
         <div class="slds-container slds-container_center slds-container_small" slot="description">
-            This app is packaged with a Salesforce Flow template that will convert Sprout Social data into records of the Sprout Social Post and Sprout Social Persona objects. Learn how to configure this flow below.
+            <p>This app is packaged with a Salesforce Flow template that will covert Sprout Social data into records of the Sprout Social Post and Sprout Social Persona objects. If you wish to continue to use Salesforce's Social Customer Service product you can choose to ignore this step.</p> 
+            <div class="ss-scoped-notification slds-scoped-notification slds-media slds-theme_info slds-theme_alert-texture slds-m-vertical_medium slds-p-around_medium">
+                <div class="slds-media__figure slds-m-top_xxx-small">
+                    <lightning-icon
+                        icon-name="utility:info_alt"
+                        size="x-small"
+                        variant="inverse">
+                    </lightning-icon>
+                </div>
+                <div class="slds-media__body slds-text-align_left">
+                    <p>On <b>November 18, 2024</b> Salesforce will be depricating the Social Customer Service product. We recommend that you adjust your workflow to support the Sprout Social Flow before the deprication date. <a href="https://help.salesforce.com/s/articleView?id=000364458&type=1" target="_blank">Learn more</a> about Social Customer Service.</p>
+                </div>
+            </div>
         </div>
-        <div class="slds-m-around_large s">        
+        <div class="slds-m-around_large">
             <ol class="slds-list_ordered">
                 <li class="slds-m-bottom_medium">
                     <strong>Open&nbsp;<a href="/lightning/setup/Flows/home" target="_blank">Flows&nbsp;<lightning-icon icon-name="utility:new_window" size="xx-small" class="ss-icon_inline slds-current-color slds-show_inline-block"></lightning-icon></a></strong>
                     <p>In your org's Setup, navigate to <strong>Flows</strong>, or search for it using the Quick Find box.</p>
                 </li>
                 <li class="slds-m-bottom_medium">
-                    <strong>Open Flow Builder</strong>
-                    <p>Click <strong>New Flow</strong> at the top of the page. Select <strong>Record-Triggered Flow</strong> for the Flow type.</p>
+                    <strong>Select the Sprout Social Flow</strong>
+                    <p>In the Flow setup list view, click on the <strong><em>SPROUT SOCIAL FLOW NAME</em></strong>. This will take you to the Salesforce Flow Builder.</p>
                 </li>
                 <li class="slds-m-bottom_medium">
-                    <strong>Define the Start of the Flow</strong>
-                    <p>Select the "Sprout Social Post" or "Sprout Social Persona" as the Flow Object, which will cause the Flow to initiate when records are created. Once you have finished defining the start of the flow, click <strong>Done</strong> to finish.</p> 
+                    <strong>Activate the Sprout Social Flow</strong>
+                    <p>Once you're in the Salesforce Flow Builder, click on <strong>Activate</strong> to start using the template.</p> 
                 </li>
             </ol>
+            <div class="ss-scoped-notification slds-scoped-notification slds-media slds-theme_shade slds-m-vertical_medium slds-p-around_medium">
+                <div class="slds-media__body slds-text-align_left">
+                    <p>Optionally, you can choose to create your own flow to work with the Sprout Social integration to fit your needs. <a href="https://trailhead.salesforce.com/en/content/learn/trails/build-flows-with-flow-builder" target="_blank">Learn more</a> about building your own custom Salesforce Flows.</p>
+                </div>
+            </div>
         </div>
     </c-step>
 </template>
