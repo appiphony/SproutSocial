@@ -15,39 +15,39 @@ public with sharing class packageLogger {
                     }
                 }
             });
+        
+            Set<String> fields = new Set<String> {
+                'Id',
+                'Retention_Value__c',
+                'Retention_Type__c'
+            };
+
+            String query = 'SELECT ' + String.join(new List<String>(fields), ',') + ' FROM ' + constants.NAMESPACE_API + 'Setup_MetaData__mdt WHERE label = \'Default\' WITH SECURITY_ENFORCED';
+            List<Setup_MetaData__mdt> data = Database.query(query);
+            Setup_MetaData__mdt setupData = new Setup_MetaData__mdt();
+
+            List<AggregateResult> numPackageLogsList = [SELECT count(Id) packageLogCount FROM Package_Log__c];
+
+            if (!data.isEmpty()) {
+                setupData = data[0];
+            }
+
+            if(numPackageLogsList[0].get('packageLogCount') == setupData.get('Retention_Value__c')) {
+                delete [SELECT Id 
+                        FROM Package_Log__c
+                        ORDER BY CreatedDate asc 
+                        LIMIT 1];
+            }
+
+            insert new Package_Log__c(
+                Dump__c = dump.left(131072),
+                Location__c = location,
+                Message__c = message,
+                Type__c = type
+            );
         } catch (Exception e) {
             return;
         }
-        
-        Set<String> fields = new Set<String> {
-            'Id',
-            'Retention_Value__c',
-            'Retention_Type__c'
-        };
-
-        String query = 'SELECT ' + String.join(new List<String>(fields), ',') + ' FROM ' + constants.NAMESPACE_API + 'Setup_MetaData__mdt WHERE label = \'Default\' WITH SECURITY_ENFORCED';
-        List<Setup_MetaData__mdt> data = Database.query(query);
-        Setup_MetaData__mdt setupData = new Setup_MetaData__mdt();
-
-        List<AggregateResult> numPackageLogsList = [SELECT count(Id) packageLogCount FROM Package_Log__c];
-
-        if (!data.isEmpty()) {
-            setupData = data[0];
-        }
-
-        if(numPackageLogsList[0].get('packageLogCount') == setupData.get('Retention_Value__c')) {
-            delete [SELECT Id 
-                    FROM Package_Log__c
-                    ORDER BY CreatedDate asc 
-                    LIMIT 1];
-        }
-
-        insert new Package_Log__c(
-            Dump__c = dump.left(131072),
-            Location__c = location,
-            Message__c = message,
-            Type__c = type
-        );
     }
 
     public static void create(Exception e, Object self){

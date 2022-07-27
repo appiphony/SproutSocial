@@ -64,6 +64,7 @@ public with sharing class SetupAssistant {
 
             return getData();
         } catch (Exception e) {
+            packageLogger.Create(e.getMessage(), 'error', 'SetupAssistant Line number: ' + String.valueOf(e.getLineNumber()), e.getStackTraceString());
             rd.addError(e);
         }
         
