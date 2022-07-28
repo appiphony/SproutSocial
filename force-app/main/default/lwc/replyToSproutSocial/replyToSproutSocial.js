@@ -8,9 +8,9 @@ export default class ReplyToSproutSocial extends LightningElement {
     sproutSocialEmptyState = sproutSocialEmptyState;
     @track isClassic = false;
     @track hasError = true;
-    @track setupComplete = false; 
+    @track setupComplete = true; 
     
     get errorMessage() {
-        return !this.setupComplete ? 'Complete the Sprout Social Setup Assistant to use this component.' : 'This user does not have permission to use this component. Please contact your admin.';
+        return !this.setupComplete ? 'Complete the Sprout Social Setup Assistant to use this component.' : 'A System Administrator must assign the "Sprout Social User" permission set to you in order for you to use this component.';
     }
 }
