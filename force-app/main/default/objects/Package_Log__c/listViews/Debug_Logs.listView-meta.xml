@@ -1,0 +1,14 @@
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Debug_Logs</fullName>
+    <columns>NAME</columns>
+    <columns>Type__c</columns>
+    <columns>Location__c</columns>
+    <columns>Message__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Debug</value>
+    </filters>
+    <label>Debug Logs</label>
+</ListView>
