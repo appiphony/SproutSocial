@@ -66,6 +66,7 @@ export default class PackageLogConfigStep extends LightningElement {
 
     updateLogLimit(event){
         this.logRecordsRetainedLimit = event.currentTarget.value;
+        console.log(this.logRecordsRetainedLimit);
     }
 
     handleDeleteLogModal(event) {
@@ -97,7 +98,6 @@ export default class PackageLogConfigStep extends LightningElement {
             Retention_Type__c : this.capturedActivityValue,
             Retention_Value__c : this.logRecordsRetainedLimit
         }
-
         saveData({setupData:setupData}).then(res => {
             let parsedRes = JSON.parse(res);
             if (parsedRes.isSuccess) {

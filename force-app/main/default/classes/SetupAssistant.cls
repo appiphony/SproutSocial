@@ -5,6 +5,15 @@ public with sharing class SetupAssistant {
         namespace = constants.NAMESPACE;
     }
 
+    @testVisible static List<Setup_MetaData__mdt> setupConfigMetadata { 
+        get {
+            if (setupConfigMetadata == null)
+                setupConfigMetadata = [SELECT Steps_Completed__c, Retention_Type__c, Retention_Value__c  
+                                       FROM Setup_MetaData__mdt
+                                       WITH SECURITY_ENFORCED]; 
+            return setupConfigMetadata;
+        } set; }
+
     @AuraEnabled
     public static String getPackageVersion() {
         responseData rd = new responseData();
@@ -42,10 +51,7 @@ public with sharing class SetupAssistant {
         responseData rd = new responseData();
 
         try {
-            //checkAccess();
-
-            System.debug('save Data:' + setupData);
-            
+            //checkAccess();            
             if (setupData != null) {
                 List<Setup_MetaData__mdt> data = [SELECT Id, Steps_Completed__c, label, Retention_Value__c, Retention_Type__c FROM Setup_MetaData__mdt WHERE label = 'Default' WITH SECURITY_ENFORCED];
                 if (!data.isEmpty()){
@@ -99,7 +105,7 @@ public with sharing class SetupAssistant {
         return setupData;
     }
 
-    public static void saveSetupData(Account setupData) {
+    //public static void saveSetupData(Account setupData) {
         //checkAccess();
         
         /*List<Setup_Data__c> data = [SELECT Id, Steps_Completed__c 
@@ -124,7 +130,7 @@ public with sharing class SetupAssistant {
         setupData.Name = 'Default';
 
         upsert setupData;*/
-    }
+    //}
 
     /*private static void checkAccess() {
         Set<String> dataReadFields = new Set<String>();

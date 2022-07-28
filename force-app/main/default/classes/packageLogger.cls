@@ -1,4 +1,15 @@
 public with sharing class packageLogger {
+
+    @testVisible static List<Setup_MetaData__mdt> setupConfigMetadata { 
+        get {
+            if (setupConfigMetadata == null)
+                setupConfigMetadata = [SELECT Steps_Completed__c, Retention_Type__c, Retention_Value__c  
+                                       FROM Setup_MetaData__mdt
+                                       WITH SECURITY_ENFORCED]; 
+            return setupConfigMetadata;
+        } set; 
+    }
+
     public static void create(String message, String type, String location, String dump) {
 
         try {
@@ -27,6 +38,10 @@ public with sharing class packageLogger {
             Setup_MetaData__mdt setupData = new Setup_MetaData__mdt();
 
             List<AggregateResult> numPackageLogsList = [SELECT count(Id) packageLogCount FROM Package_Log__c];
+
+            if(Test.isRunningTest()){
+                data = setupConfigMetadata;
+            }
 
             if (!data.isEmpty()) {
                 setupData = data[0];
@@ -74,9 +89,5 @@ public with sharing class packageLogger {
         public override String getStackTraceString() {
             return super.getCause().getStackTraceString();
         }
-    }
-
-    public packageLogger() {
-        
     }
 }

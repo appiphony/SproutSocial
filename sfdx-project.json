@@ -1,6 +1,10 @@
 {
     "packageDirectories": [{
         "path": "force-app",
-        "default": true
-    }]
+        "default": true,
+        "package": "SproutSocial",
+        "versionName": "ver 1.0",
+        "versionNumber": "1.0.0.NEXT"
+    }],
+    "namespace": "SproutSocialApp"
 }
