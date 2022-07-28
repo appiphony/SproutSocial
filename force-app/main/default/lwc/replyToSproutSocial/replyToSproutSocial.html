@@ -1,4 +1,8 @@
 <template>
+  <template if:true={isClassic}>
+    <!-- iframe / vf page -->
+  </template>
+  <template if:false={isClassic}>
     <article class="slds-card">
         <div class="slds-page-header slds-grid">
           <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -13,9 +17,20 @@
           </header>
         </div>
         <div class="slds-card__body slds-card__body_inner">
-          <div class="ss-iframe-container">
-            <!-- iframe / vf page -->
-          </div>
+          <template if:true={hasError}>
+            <div class="slds-grid slds-grid_vertical-align-center slds-text-align_center">
+              <div class="slds-col slds-p-around_x-large">
+                <img class="ss-empty-state_img" src={sproutSocialEmptyState} alt="No Access" />
+                <p class="slds-m-top_x-large">{errorMessage}</p>
+              </div>
+            </div>
+          </template>
+          <template if:false={hasError}>
+            <div class="ss-iframe-container">
+              <!-- iframe / vf page -->
+            </div>
+          </template>
         </div>
       </article>
+  </template>
 </template>

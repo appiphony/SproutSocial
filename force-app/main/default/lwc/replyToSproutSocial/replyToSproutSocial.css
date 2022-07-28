@@ -6,3 +6,7 @@ height: 18.75rem; /* placeholder for now */
     width: auto;
     height: 1.25rem;
 }
+
+.ss-empty-state_img {
+    max-width: 18.75rem;
+}
