@@ -3,7 +3,7 @@ public with sharing class packageLogger {
     @testVisible static List<Setup_MetaData__mdt> setupConfigMetadata { 
         get {
             if (setupConfigMetadata == null)
-                setupConfigMetadata = [SELECT Steps_Completed__c, Retention_Type__c, Retention_Value__c  
+                setupConfigMetadata = [SELECT Label, Retention_Type__c, Retention_Value__c  
                                        FROM Setup_MetaData__mdt
                                        WITH SECURITY_ENFORCED]; 
             return setupConfigMetadata;
@@ -33,15 +33,19 @@ public with sharing class packageLogger {
                 'Retention_Type__c'
             };
 
-            String query = 'SELECT ' + String.join(new List<String>(fields), ',') + ' FROM ' + constants.NAMESPACE_API + 'Setup_MetaData__mdt WHERE label = \'Default\' WITH SECURITY_ENFORCED';
-            List<Setup_MetaData__mdt> data = Database.query(query);
+            List<Setup_MetaData__mdt> data = [SELECT Id, Retention_Value__c, Retention_Type__c 
+                                                FROM Setup_MetaData__mdt 
+                                                WITH SECURITY_ENFORCED];
+        
+            if(Test.isRunningTest()){
+                data = setupConfigMetadata;
+            }
+
             Setup_MetaData__mdt setupData = new Setup_MetaData__mdt();
 
             List<AggregateResult> numPackageLogsList = [SELECT count(Id) packageLogCount FROM Package_Log__c];
 
-            if(Test.isRunningTest()){
-                data = setupConfigMetadata;
-            }
+            System.debug(setupConfigMetadata.size());
 
             if (!data.isEmpty()) {
                 setupData = data[0];

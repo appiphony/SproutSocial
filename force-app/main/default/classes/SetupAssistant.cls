@@ -54,6 +54,10 @@ public with sharing class SetupAssistant {
             //checkAccess();            
             if (setupData != null) {
                 List<Setup_MetaData__mdt> data = [SELECT Id, Steps_Completed__c, label, Retention_Value__c, Retention_Type__c FROM Setup_MetaData__mdt WHERE label = 'Default' WITH SECURITY_ENFORCED];
+                if(Test.isRunningTest()){
+                    data = setupConfigMetadata;
+                }
+                
                 if (!data.isEmpty()){
                     
                     Setup_MetaData__mdt dataObj = (Setup_MetaData__mdt)utilities.getSobjectByMap(setupData, constants.NAMESPACE_API + 'Setup_MetaData__mdt');
