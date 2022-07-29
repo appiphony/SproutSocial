@@ -7,7 +7,6 @@
     <columns>Message_Type__c</columns>
     <columns>ReviewedStatus__c</columns>
     <columns>ReviewScore__c</columns>
-    <columns>CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>
