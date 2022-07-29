@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sprout_Social_Post_Compact_Layout</fullName>
+    <fields>PersonaId__c</fields>
+    <fields>Provider__c</fields>
+    <fields>ReviewScale__c</fields>
+    <fields>ReviewScore__c</fields>
+    <label>Sprout Social Post Compact Layout</label>
+</CompactLayout>
